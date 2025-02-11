@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drug Stock</title>
+    <link rel="stylesheet" href="style.css">
+    <script>
+        function loadStock() {
+            let stock = JSON.parse(localStorage.getItem("stock")) || [];
+            const tableBody = document.getElementById("stockTableBody");
+            tableBody.innerHTML = "";
+
+            stock.forEach(drug => {
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td class="drug-name">${drug.name}</td>
+                    <td>${drug.quantity} ${drug.company ? "(" + drug.company + ")" : ""}</td>
+                    <td>${drug.expiry ? drug.expiry : "N/A"}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        function searchStock() {
+            const input = document.getElementById("searchStock").value.toLowerCase();
+            const rows = document.querySelectorAll("#stockTable tbody tr");
+
+            rows.forEach(row => {
+                const drugName = row.querySelector(".drug-name").textContent.toLowerCase();
+                row.style.display = drugName.includes(input) ? "" : "none";
+            });
+        }
+
+        document.addEventListener("DOMContentLoaded", loadStock);
+    </script>
+</head>
+<body>
+<header>
+    <img src="assest/logo.jpg" alt="Medical Center Logo" class="logo">
+    <h1>Drug Stock</h1>
+</header>
+<main>
+    <div class="search-bar">
+        <input type="text" id="searchStock" placeholder="Search Drug in Stock" onkeyup="searchStock()">
+    </div>
+
+    <div class="stock-table">
+        <table id="stockTable">
+            <thead>
+            <tr>
+                <th>Drug Name</th>
+                <th>Quantity</th>
+                <th>Expiry Date</th>
+            </tr>
+            </thead>
+            <tbody id="stockTableBody">
+            </tbody>
+        </table>
+    </div>
+</main>
+<footer>
+    <p>© 2025 Medical Center. All Rights Reserved.</p>
+</footer>
+</body>
+</html>

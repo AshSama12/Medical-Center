@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Write Prescription</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+    <img src="assest/logo.jpg" alt="Medical Center Logo" class="logo">
+    <h1>Write Prescription</h1>
+</header>
+<main>
+    <div class="search-bar">
+        <input type="text" id="searchPatient" placeholder="Search Patient by Name or ID">
+        <button onclick="searchPatient()">Search</button>
+    </div>
+    <div class="prescription-section">
+        <h2>Prescription for: <span id="patientName">[Select Patient]</span></h2>
+        <textarea id="prescriptionArea" placeholder="Write prescription here..."></textarea>
+        <div class="time-stamp">
+            <span>Last updated: <span id="timestamp">[No updates yet]</span></span>
+        </div>
+        <button onclick="savePrescription()">Save Prescription</button>
+    </div>
+</main>
+<footer>
+    <p>© 2025 Medical Center. All Rights Reserved.</p>
+</footer>
+
+<script>
+    // Function to search for a patient
+    function searchPatient() {
+        const searchQuery = document.getElementById('searchPatient').value;
+        if (searchQuery) {
+            // Simulate patient selection
+            document.getElementById('patientName').textContent = searchQuery;
+            alert(`Patient "${searchQuery}" selected.`);
+        } else {
+            alert('Please enter a patient name or ID.');
+        }
+    }
+
+    // Function to save the prescription and update the timestamp
+    function savePrescription() {
+        const prescription = document.getElementById('prescriptionArea').value;
+        const patientName = document.getElementById('patientName').textContent;
+        if (prescription && patientName !== '[Select Patient]') {
+            // Update the timestamp
+            const currentDateTime = new Date().toLocaleString();
+            document.getElementById('timestamp').textContent = currentDateTime;
+
+            alert(`Prescription for "${patientName}" saved at ${currentDateTime}`);
+        } else {
+            alert('Please select a patient and write a prescription before saving.');
+        }
+    }
+</script>
+</body>
+</html>

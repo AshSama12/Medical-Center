@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Patient</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+    <img src="assest/logo.jpg" alt="Medical Center Logo" class="logo">
+    <h1>Add New Patient</h1>
+</header>
+<main>
+    <form class="patient-form" id="addPatientForm">
+        <div class="form-group">
+            <label for="name">Patient Name <span class="required">*</span></label>
+            <input type="text" id="name" name="name" placeholder="Enter patient's name" required>
+        </div>
+        <div class="form-group">
+            <label for="dob">Date of Birth (DOB) <span class="required">*</span></label>
+            <input type="date" id="dob" name="dob" required>
+        </div>
+        <div class="form-group">
+            <label for="age">Age</label>
+            <input type="number" id="age" name="age" placeholder="Enter age" readonly>
+        </div>
+        <div class="form-group">
+            <label for="telephone">Telephone Number</label>
+            <input type="tel" id="telephone" name="telephone" placeholder="Enter phone number">
+        </div>
+        <div class="form-group">
+            <label for="address">Address</label>
+            <textarea id="address" name="address" placeholder="Enter address" rows="3"></textarea>
+        </div>
+        <div class="form-buttons">
+            <button type="submit" class="save-button">Save</button>
+            <button type="button" class="cancel-button" onclick="cancelForm()">Cancel</button>
+        </div>
+    </form>
+</main>
+<footer>
+    <p>© 2025 Medical Center. All Rights Reserved.</p>
+</footer>
+
+<script>
+    // Cancel button function to redirect back to patient.html
+    function cancelForm() {
+        window.location.href = "patient.html";
+    }
+
+    // Function to calculate age from DOB
+    function calculateAge() {
+        const dobInput = document.getElementById('dob').value;
+        const ageInput = document.getElementById('age');
+
+        if (dobInput) {
+            const dob = new Date(dobInput);
+            const today = new Date();
+
+            let age = today.getFullYear() - dob.getFullYear();
+            const monthDifference = today.getMonth() - dob.getMonth();
+
+            // Adjust age if the birth month hasn't occurred yet this year
+            if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < dob.getDate())) {
+                age--;
+            }
+
+            ageInput.value = age; // Set the calculated age
+        } else {
+            ageInput.value = ''; // Clear the age field if no DOB is entered
+        }
+    }
+
+    // Add event listener for DOB input to calculate age
+    document.getElementById('dob').addEventListener('input', calculateAge);
+
+    // Handle form submission (placeholder functionality)
+    document.getElementById('addPatientForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent page reload
+        const name = document.getElementById('name').value;
+        const dob = document.getElementById('dob').value;
+
+        if (name && dob) {
+            alert("Patient information saved successfully!");
+            // Add backend logic to save data here
+            window.location.href = "patient.html"; // Redirect to patient management page
+        } else {
+            alert("Please fill in all required fields!");
+        }
+    });
+</script>
+</body>
+</html>

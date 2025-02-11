@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Medicine</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+    <img src="assest/logo.jpg" alt="Medical Center Logo" class="logo">
+    <h1>Add New Medicine</h1>
+</header>
+<main>
+    <form class="medicine-form" id="medicineForm">
+        <div class="form-group">
+            <label for="drugName">Drug Name:</label>
+            <input type="text" id="drugName" placeholder="Enter Drug Name" required>
+        </div>
+        <div class="form-group">
+            <label for="companyName">Company Name:</label>
+            <input type="text" id="companyName" placeholder="Enter Company Name">
+        </div>
+        <div class="form-group">
+            <label for="amount">Amount (Tablets/Bottles):</label>
+            <input type="number" id="amount" placeholder="Enter Amount" required>
+        </div>
+        <div class="form-group">
+            <label for="expiryDate">Expiry Date:</label>
+            <input type="date" id="expiryDate">
+        </div>
+        <div class="form-buttons">
+            <button type="button" class="save-button" onclick="addMedicine()">Save</button>
+        </div>
+    </form>
+</main>
+<footer>
+    <p>© 2025 Medical Center. All Rights Reserved.</p>
+</footer>
+
+<script>
+    function addMedicine() {
+        const drugName = document.getElementById("drugName").value.trim();
+        const companyName = document.getElementById("companyName").value.trim();
+        const amount = document.getElementById("amount").value.trim();
+        const expiryDate = document.getElementById("expiryDate").value;
+
+        if (drugName && amount) {
+            let stock = JSON.parse(localStorage.getItem("stock")) || [];
+
+            let existingDrug = stock.find(drug => drug.name.toLowerCase() === drugName.toLowerCase());
+            if (existingDrug) {
+                existingDrug.quantity += parseInt(amount);
+            } else {
+                stock.push({ name: drugName, company: companyName, quantity: parseInt(amount), expiry: expiryDate });
+            }
+
+            localStorage.setItem("stock", JSON.stringify(stock));
+            alert(`New Medicine Added: ${drugName}`);
+            document.getElementById("medicineForm").reset();
+        } else {
+            alert("Please fill out all required fields!");
+        }
+    }
+</script>
+</body>
+</html>

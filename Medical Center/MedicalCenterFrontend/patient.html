@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Management</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+    <img src="assest/logo.jpg" alt="Medical Center Logo" class="logo">
+    <h1>Patient Management</h1>
+</header>
+<main>
+    <div class="search-bar">
+        <!-- Search bar modified to search by DOB -->
+        <input type="date" id="searchDOB" placeholder="Search Patient by DOB">
+        <button onclick="searchPatientByDOB()">Search</button>
+    </div>
+    <div class="image-section">
+        <img src="assest/patient.jpg" alt="Patient Management" class="patient-image">
+    </div>
+    <div class="add-section">
+        <a href="add_patient.html" class="add-button">Add New Patient</a>
+        <a href="prescription.html" class="write-button">Write Prescription</a>
+    </div>
+</main>
+<footer>
+    <p>© 2025 Medical Center. All Rights Reserved.</p>
+</footer>
+
+<script>
+    // JavaScript function to handle search by DOB
+    function searchPatientByDOB() {
+        const dob = document.getElementById('searchDOB').value;
+        if (dob) {
+            alert(`Searching for patients born on ${dob}`);
+            // Add functionality to query your backend or perform desired operations
+        } else {
+            alert('Please select a Date of Birth.');
+        }
+    }
+</script>
+</body>
+</html>

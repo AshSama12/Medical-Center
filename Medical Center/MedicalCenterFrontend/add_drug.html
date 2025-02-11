@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Drug</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+    <img src="assest/logo.jpg" alt="Medical Center Logo" class="logo">
+    <h1>Add Drug</h1>
+</header>
+<main>
+    <form class="drug-form" id="drugForm">
+        <div class="form-group">
+            <label for="drugName">Drug Name:</label>
+            <input type="text" id="drugName" placeholder="Enter Drug Name" required>
+        </div>
+        <div class="form-group">
+            <label for="amount">Amount (Tablets/Bottles):</label>
+            <input type="number" id="amount" placeholder="Enter Amount" required>
+        </div>
+        <div class="form-buttons">
+            <button type="button" class="save-button" onclick="saveDrug()">Save</button>
+            <button type="button" class="add-more-button" onclick="location.href='add-medicine.html'">Add New</button>
+        </div>
+    </form>
+</main>
+<footer>
+    <p>© 2025 Medical Center. All Rights Reserved.</p>
+</footer>
+
+<script>
+    function saveDrug() {
+        const drugName = document.getElementById("drugName").value.trim();
+        const amount = document.getElementById("amount").value.trim();
+
+        if (drugName && amount) {
+            let stock = JSON.parse(localStorage.getItem("stock")) || [];
+
+            let existingDrug = stock.find(drug => drug.name.toLowerCase() === drugName.toLowerCase());
+            if (existingDrug) {
+                existingDrug.quantity += parseInt(amount);
+            } else {
+                stock.push({ name: drugName, quantity: parseInt(amount) });
+            }
+
+            localStorage.setItem("stock", JSON.stringify(stock));
+            alert(`Drug Saved: ${drugName}, Amount: ${amount}`);
+            document.getElementById("drugForm").reset();
+        } else {
+            alert("Please fill out all required fields!");
+        }
+    }
+</script>
+</body>
+</html>
