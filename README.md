@@ -9,7 +9,7 @@ This is a **Spring Boot-based Medical Center Management System** that allows a d
 - **Database**: MySQL
 - **Build Tool**: Maven
 
-## 📂 Project Structure
+##  Project Structure
 ```
 medical-center/
 │── src/main/java/com/example/MedicalCenter/
